@@ -40,6 +40,9 @@ const EL = (() => {
                             for(var r in item[p])
                                 rule += r + ":" + item[p][r] + ";";
                             e.style = rule;
+                        } else if(p === "on" && typeof item[p] === "object") {
+                            for(var o in item[p])
+                                e.addEventListener(o, item[p][o]);
                         } else {
                             e.setAttribute(p, item[p]);
                         }
