@@ -12,7 +12,7 @@ const DOMUtl = () => {
                 }
             }
             res[mode].push(key.substring(begin, c));
-            var e = document.createElement(res[0][0] == "" ? res[0][0] : "div");
+            var e = document.createElement(res[0][0] != "" ? res[0][0] : "div");
             if (res[1].length > 0) e.id = res[1][0];
             if (res[2].length > 0) e.className = res[2].join(" ");
             Array.from(args).forEach(item => {
