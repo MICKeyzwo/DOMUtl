@@ -3,7 +3,7 @@ const DOMUtl = () => {
         el: (key, ...args) => {
             if(typeof key == "undefined") key = ""; else key = key.toString();
             var res = [[], [], []],
-                begin = mode = c = 0;
+                begin = 0, mode = 0, c = 0;
             for (c = 0; c < key.length; c += 1) {
                 if (key[c] == "#" || key[c] == ".") {
                     res[mode].push(key.substring(begin, c));
