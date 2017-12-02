@@ -2,7 +2,7 @@ const DOMUtl = () => {
     return {
         el: (key, ...args) => {
             if(typeof key == "undefined") key = ""; else key = key.toString();
-            var res = [[], [], []],
+            let res = [[], [], []],
                 begin = 0, mode = 0, c = 0;
             for (c = 0; c < key.length; c += 1) {
                 if (key[c] == "#" || key[c] == ".") {
@@ -12,7 +12,7 @@ const DOMUtl = () => {
                 }
             }
             res[mode].push(key.substring(begin, c));
-            var e = document.createElement(res[0][0] != "" ? res[0][0] : "div");
+            let e = document.createElement(res[0][0] != "" ? res[0][0] : "div");
             if (res[1].length > 0) e.id = res[1][0];
             if (res[2].length > 0) e.className = res[2].join(" ");
             Array.from(args).forEach(item => {
@@ -47,6 +47,11 @@ const DOMUtl = () => {
                 }
             });
             return e;
+        },
+        html: str => {
+            let temp = document.createElement("div");
+            temp.innerHTML = str;
+            return temp.firstChild;
         },
         text: str => document.createTextNode(str),
         on: (elm, evt, cb) => elm.addEventListener(evt, cb),
