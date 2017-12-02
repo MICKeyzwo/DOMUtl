@@ -50,7 +50,7 @@ const DOMUtl = () => {
         },
         text: str => document.createTextNode(str),
         on: (elm, evt, cb) => elm.addEventListener(evt, cb),
-        off: (elm, evt, cb) => elm.removeEventListener(elm, evt, cb),
+        off: (elm, evt, cb) => elm.removeEventListener(evt, cb),
         mount: (parent, child) => parent.appendChild(child),
         inmount: (parent, child) => parent.insertBefore(child, parent.firstChild),
         unmount: elm => elm.parentNode.removeChild(elm),
