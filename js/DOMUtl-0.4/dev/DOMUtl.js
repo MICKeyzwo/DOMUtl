@@ -15,7 +15,7 @@ const DOMUtl = () => {
             let e = document.createElement(res[0][0] || "div");
             if (res[1].length > 0) e.id = res[1][0];
             if (res[2].length > 0) e.className = res[2].join(" ");
-            Array.from(args).forEach(item => {
+            args.forEach(item => {
                 if (typeof item == "object") {
                     if (item instanceof Node) {
                         e.appendChild(item);
