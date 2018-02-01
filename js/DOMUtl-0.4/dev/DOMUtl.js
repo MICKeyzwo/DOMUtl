@@ -3,15 +3,15 @@ const DOMUtl = () => {
         el: (key, ...args) => {
             key = (key || "").toString();
             let res = [[], [], []],
-                begin = 0, mode = 0, c = 0;
-            for (c = 0; c < key.length; c += 1) {
-                if (key[c] == "#" || key[c] == ".") {
+                begin = 0, mode = 0;
+            key.split("").forEach((s, c) => {
+                if (s == "#" || s == ".") {
                     res[mode].push(key.substring(begin, c));
                     begin = c + 1;
-                    mode = key[c] == "#" ? 1 : 2;
+                    mode = s == "#" ? 1 : 2;
                 }
-            }
-            res[mode].push(key.substring(begin, c));
+            });
+            res[mode].push(key.substring(begin, key.length));
             let e = document.createElement(res[0][0] || "div");
             if (res[1].length > 0) e.id = res[1][0];
             if (res[2].length > 0) e.className = res[2].join(" ");
@@ -41,7 +41,7 @@ const DOMUtl = () => {
                         }
                     }
                 } else if (typeof item == "string") {
-                    e.innerHTML += item;
+                    e.textContent += item;
                 } else if (typeof item == "function") {
                     item(e);
                 }
@@ -58,7 +58,8 @@ const DOMUtl = () => {
         off: (elm, evt, cb) => elm.removeEventListener(evt, cb),
         mount: (parent, child) => parent.appendChild(child),
         inmount: (parent, child) => parent.insertBefore(child, parent.firstChild),
-        unmount: elm => elm.parentNode.removeChild(elm),
+        before: (elm, target) => target.parentNode.insertBefore(elm, target),
+        after: (elm, target) => target.parentNode.insertBefore(this.nextSibling),
         getel: (key, root = document) => root.querySelector(key),
         getels: (key, root = document) => root.querySelectorAll(key)
     }
