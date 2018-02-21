@@ -50,15 +50,15 @@ module.exports = {
     html: str => {
         let temp = document.createElement("div");
         temp.innerHTML = str;
-        return temp.firstChild;
+        return temp.children[0];
     },
     text: str => document.createTextNode(str),
     on: (elm, evt, cb) => elm.addEventListener(evt, cb),
     off: (elm, evt, cb) => elm.removeEventListener(evt, cb),
     mount: (parent, child) => parent.appendChild(child),
     inmount: (parent, child) => parent.insertBefore(child, parent.firstChild),
-    before: (elm, target) => target.parentNode.insertBefore(elm, target),
-    after: (elm, target) => target.parentNode.insertBefore(this.nextSibling),
+    before: (target, elm) => target.parentNode.insertBefore(elm, target),
+    after: (target, elm) => target.parentNode.insertBefore(this.nextSibling),
     getel: (key, root = document) => root.querySelector(key),
     getels: (key, root = document) => root.querySelectorAll(key)
 };
