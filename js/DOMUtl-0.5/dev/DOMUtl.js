@@ -2,13 +2,15 @@ const DOMUtl = () => {
     return {
         el: (key, ...args) => {
             key = (key || "").toString();
-            let tag = key.match(/^[a-z]+[0-9]/);
+            let tag = key.match(/^[a-z]+[0-9]?/);
             tag = tag ? tag[0] : "div";
             let e = document.createElement(tag);
-            let id = key.match(/#[a-z|0-9]+/);
-            if (id) e.id = id[0].replace("#", "");
-            let cls = key.match(/\.[a-z|0-9]+/g);
-            if (cls) e.className = cls.map(s => s.replace(".", "")).join(" ");
+            let id = key.match(/#.+?\.|#.+.$/g);
+            if (id) e.id = id[0].replace("#", "").replace(".", "");
+            let cls = key.match(/\..+?#|\..+.$/g);
+            if (cls) e.className = cls.map(s => 
+                s.replace(/\./g, " ").trim().replace("#", "")
+            ).join(" ");
             args.forEach(item => {
                 if (typeof item == "object") {
                     if (item instanceof Node) {
